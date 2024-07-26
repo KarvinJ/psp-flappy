@@ -93,8 +93,12 @@ float lastPipeSpawnTime;
 
 void generatePipes()
 {
-    int upPipePosition = rand() % 200;
+    int upPipePosition = rand() % 220;
 
+//minimum upPipePosition.
+    if(upPipePosition < 120)
+        upPipePosition = 120;
+    
     upPipePosition *= -1;
 
     SDL_Rect upPipeBounds = {SCREEN_WIDTH, upPipePosition, upPipeSprite.textureBounds.w, upPipeSprite.textureBounds.h};
@@ -104,7 +108,7 @@ void generatePipes()
     Pipe upPipe = {SCREEN_WIDTH, upSprite, false, false};
 
     // gap size = 40.
-    int downPipePosition = upPipePosition + upPipeSprite.textureBounds.h + 60;
+    int downPipePosition = upPipePosition + upPipeSprite.textureBounds.h + 75;
 
     SDL_Rect downPipeBounds = {SCREEN_WIDTH, downPipePosition, downPipeSprite.textureBounds.w, downPipeSprite.textureBounds.h};
 
@@ -133,7 +137,6 @@ int loadHighScore()
     return highScore;
 }
 
-//Save score not working in original hardware.
 void saveScore()
 {
     std::ofstream highScores("high-score.txt");
@@ -247,7 +250,7 @@ void update(float deltaTime)
 
     lastPipeSpawnTime += deltaTime;
 
-    if (lastPipeSpawnTime >= 2)
+    if (lastPipeSpawnTime >= 2.2f)
     {
         generatePipes();
     }
@@ -499,7 +502,7 @@ int main(int argc, char *args[])
 
     groundSprite = loadSprite(renderer, "base.png", 0, 0);
 
-    groundYPosition = SCREEN_HEIGHT - groundSprite.textureBounds.h;
+    groundYPosition = SCREEN_HEIGHT - groundSprite.textureBounds.h + 20;
 
     groundSprite.textureBounds.y = groundYPosition;
 
@@ -511,7 +514,7 @@ int main(int argc, char *args[])
 
     playerSprite = loadSprite(renderer, "yellowbird-midflap.png", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
-    player = Player{SCREEN_HEIGHT / 2, playerSprite, -10000, 400};
+    player = Player{SCREEN_HEIGHT / 2, playerSprite, -10000, 500};
 
     loadNumbersSprites();
 
