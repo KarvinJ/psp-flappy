@@ -1,12 +1,7 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
-#include <SDL2/SDL_ttf.h>
-#include <vector>
-#include <iostream>
-#include <fstream>
 #include "sdl_starter.h"
 #include "sdl_assets_loader.h"
+#include <vector>
+#include <fstream>
 
 const int SCREEN_WIDTH = 480;
 const int SCREEN_HEIGHT = 272;
@@ -294,7 +289,7 @@ void update(float deltaTime)
     }
 }
 
-void renderSprite(Sprite sprite)
+void renderSprite(Sprite &sprite)
 {
     SDL_RenderCopy(renderer, sprite.texture, NULL, &sprite.textureBounds);
 }
@@ -313,7 +308,7 @@ void render(float deltaTime)
     groundSprite.textureBounds.x = groundSprite.textureBounds.w;
     renderSprite(groundSprite);
 
-    for (Pipe pipe : pipes)
+    for (Pipe &pipe : pipes)
     {
         if (!pipe.isDestroyed)
         {
@@ -355,7 +350,7 @@ void render(float deltaTime)
 
     SDL_RenderCopy(renderer, highScoreTexture, NULL, &highScoreBounds);
 
-    for (Vector2 groundPosition : groundPositions)
+    for (Vector2 &groundPosition : groundPositions)
     {
         groundSprite.textureBounds.x = groundPosition.x;
         renderSprite(groundSprite);
@@ -438,20 +433,8 @@ int main(int argc, char *args[])
         return 1;
     }
 
-    if (SDL_NumJoysticks() < 1) {
-        printf("No game controllers connected!\n");
-        return -1;
-    } 
-    else {
-
-        controller = SDL_GameControllerOpen(0);
-        if (controller == NULL) {
-
-            printf("Unable to open game controller! SDL Error: %s\n", SDL_GetError());
-            return -1;
-        }
-    }
-
+    controller = SDL_GameControllerOpen(0);
+        
     fontSquare = TTF_OpenFont("square_sans_serif_7.ttf", 20);
 
     updateTextureText(highScoreTexture, "High Score: ", fontSquare, renderer);
