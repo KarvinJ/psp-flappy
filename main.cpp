@@ -408,6 +408,12 @@ void render(float deltaTime)
 void loadNumbersSprites()
 {
     std::string fileExtension = ".png";
+    
+    numbers.reserve(10);
+    numberTens.reserve(10);
+
+    highScoreNumbers.reserve(10);
+    highScoreNumberTens.reserve(10);
 
     for (int i = 0; i < 10; i++)
     {
