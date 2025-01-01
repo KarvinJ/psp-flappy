@@ -86,15 +86,14 @@ std::vector<Pipe> pipes;
 
 float lastPipeSpawnTime;
 
+int getRandomNumberBetweenRange(int min, int max)
+{
+    return min + rand() / (RAND_MAX / (max - min + 1) + 1);
+}
+
 void generatePipes()
 {
-    int upPipePosition = rand() % 220;
-
-//minimum upPipePosition.
-    if(upPipePosition < 120)
-        upPipePosition = 120;
-    
-    upPipePosition *= -1;
+    int upPipePosition = -getRandomNumberBetweenRange(130, 230);
 
     SDL_Rect upPipeBounds = {SCREEN_WIDTH, upPipePosition, upPipeSprite.textureBounds.w, upPipeSprite.textureBounds.h};
 
