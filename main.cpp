@@ -253,12 +253,9 @@ void update(float deltaTime)
 
     for (auto actualPipe = pipes.begin(); actualPipe != pipes.end();)
     {
-        if (!actualPipe->isDestroyed)
-        {
-            actualPipe->x -= 75 * deltaTime;
-            actualPipe->sprite.textureBounds.x = actualPipe->x;
-        }
-
+        actualPipe->x -= 75 * deltaTime;
+        actualPipe->sprite.textureBounds.x = actualPipe->x;
+        
         if (SDL_HasIntersection(&player.sprite.textureBounds, &actualPipe->sprite.textureBounds))
         {
             isGameOver = true;
